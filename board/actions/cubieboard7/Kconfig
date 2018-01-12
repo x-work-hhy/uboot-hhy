@@ -1,0 +1,21 @@
+#
+# wowo wowo@wowotech.net
+#
+# SPDX-License-Identifier:     GPL-2.0+
+#
+
+if TARGET_CUBIEBOARD7
+
+config SYS_BOARD
+       default "cubieboard7"
+
+config SYS_VENDOR
+       default "actions"
+
+config SYS_SOC
+       default "s700"
+
+config SYS_CONFIG_NAME
+       default "cubieboard7"
+
+endif

@@ -900,6 +900,15 @@ config TARGET_THUNDERX_88XX
 	select OF_CONTROL
 	select SYS_CACHE_SHIFT_7
 
+config TARGET_CUBIEBOARD7
+	bool "Support cubieboard7"
+	select ARM64
+	select SUPPORT_SPL
+	select SPL
+	help
+	Support for cubieboard7 platform based on Actions S700 Soc,
+	with 4xA53 CPU, Mali-450 MP GPU, 2GB RAM, and USB 3.0 support.
+
 endchoice
 
 source "arch/arm/mach-at91/Kconfig"
@@ -1051,5 +1060,7 @@ source "board/work-microwave/work_92105/Kconfig"
 source "board/zipitz2/Kconfig"
 
 source "arch/arm/Kconfig.debug"
+
+source "board/actions/cubieboard7/Kconfig"
 
 endmenu
