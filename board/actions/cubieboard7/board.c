@@ -12,15 +12,10 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-#define GPIOA_OUTEN	(0xe01b0000)
-#define GPIOA_OUTDAT	(0xe01b0008)
-#define DEBUG_LED0_GPIO	(19)	/* GPIOA19 */
-#define DEBUG_LED1_GPIO	(20)	/* GPIOA20 */
-
 #define GPIOB_OUTEN		(0xe01b000c)
 #define GPIOB_OUTDAT		(0xe01b0014)
-#define DEBUG_LED1_YELLOW 	(8)	/* GPIOB8 */
-#define DEBUG_LED0_BLUE		(9)	/* GPIOB9 */
+#define DEBUG_LED1_BLUE		(8)	/* GPIOB8 */
+#define DEBUG_LED0_YELLOW	(9)	/* GPIOB9 */
 
 #define GPIOF_OUTEN	(0xe01b00f0)
 #define GPIOF_OUTDAT	(0xe01b00f8)
@@ -69,14 +64,14 @@ void bubblegum_early_debug(int debug_code)
 	uint8_t val;
 
 	val = debug_code & 0x1;
-	setbits_le32(GPIOA_OUTEN, 1 << DEBUG_LED0_GPIO);
-	clrsetbits_le32(GPIOA_OUTDAT, 1 << DEBUG_LED0_GPIO,
-			val << DEBUG_LED0_GPIO);
+	setbits_le32(GPIOB_OUTEN, 1 << DEBUG_LED0_YELLOW);
+	clrsetbits_le32(GPIOB_OUTDAT, 1 << DEBUG_LED0_YELLOW,
+			val << DEBUG_LED0_YELLOW);
 
 	val = (debug_code >> 1) & 0x1;
-	setbits_le32(GPIOA_OUTEN, 1 << DEBUG_LED1_GPIO);
-	clrsetbits_le32(GPIOA_OUTDAT, 1 << DEBUG_LED1_GPIO,
-			val << DEBUG_LED1_GPIO);
+	setbits_le32(GPIOB_OUTEN, 1 << DEBUG_LED1_BLUE);
+	clrsetbits_le32(GPIOB_OUTDAT, 1 << DEBUG_LED1_BLUE,
+			val << DEBUG_LED1_BLUE);
 
 	val = (debug_code >> 2) & 0x1;
 	setbits_le32(GPIOF_OUTEN, 1 << DEBUG_LED2_GPIO);

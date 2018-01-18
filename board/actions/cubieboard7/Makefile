@@ -1,8 +1,8 @@
 #
-## (C) Copyright 2016 wowotech
+# (C) Copyright 2016 wowotech
 #
-## wowo<wowo@wowotech.net>
+# wowo<wowo@wowotech.net>
 #
-## SPDX-License-Identifier:	GPL-2.0+
+# SPDX-License-Identifier:	GPL-2.0+
 #
 obj-y += board.o
