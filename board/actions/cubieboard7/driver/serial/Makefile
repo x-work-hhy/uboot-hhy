@@ -5,5 +5,4 @@
 #
 # SPDX-License-Identifier:	GPL-2.0+
 #
-obj-y += board.o
-obj-y += driver/
+obj-y += owl_serial.o owl_console.o owl_printf.o

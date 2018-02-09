@@ -38,8 +38,8 @@
  * u-boot definitions, which is resided in SDRAM, TODO
  */
 
-#define CONFIG_SYS_TEXT_BASE		0x11000000
-#define CONFIG_SYS_INIT_SP_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x7ff00)
+#define CONFIG_SYS_TEXT_BASE		CONFIG_SPL_TEXT_BASE
+#define CONFIG_SYS_INIT_SP_ADDR		CONFIG_SPL_STACK
 
 /* Some commands use this as the default load address, TODO */
 #define CONFIG_SYS_LOAD_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x7ffc0)
@@ -72,6 +72,7 @@
 #define CONFIG_SYS_NO_FLASH
 
 #define CONFIG_BOARD_EARLY_INIT_F
+/* #define CONFIG_SPL_FRAMEWORK */
 
 #define CONFIG_BOOTARGS                 "earlycon=owl_serial " \
 					"console=ttyS5 " \

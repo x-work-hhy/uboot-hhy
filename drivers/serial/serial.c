@@ -246,6 +246,7 @@ void serial_initialize(void)
 	stm32_serial_initialize();
 	uartlite_serial_initialize();
 	zynq_serial_initialize();
+	owl_serial_initialize();
 
 	serial_assign(default_serial_console()->name);
 }

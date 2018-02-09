@@ -413,4 +413,10 @@ config PXA_SERIAL
 	  If you have a machine based on a Marvell XScale PXA2xx CPU you
 	  can enable its onboard serial ports by enabling this option.
 
+config OWL_SERIAL
+	bool "Actions on-chip UART for OWL soc"
+	depends on DM_SERIAL
+	help
+	  Select this if the UART you want to use for debug output.
+
 endmenu
