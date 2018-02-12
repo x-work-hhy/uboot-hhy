@@ -124,7 +124,7 @@ static int owl_dm_serial_putc(struct udevice *dev, const char ch)
 	return 0;
 }
 
-static int owl_dm_serial_pending(struct udevice *dev, bool	input)
+static int owl_dm_serial_pending(struct udevice *dev, bool input)
 {
 	unsigned int stat = readl(UART_BASE + UART_STAT);
 
@@ -177,7 +177,6 @@ static int owl_serial_probe(struct udevice *dev)
 	return 0;
 }
 
-#ifdef CONFIG_SPL_BUILD
 static int owl_serial_init(void)
 {
  	return owl_serial_probe(NULL);
@@ -224,7 +223,6 @@ struct serial_device *default_serial_console(void)
 {
 	return &owl_serial_device;
 }
-#endif
 
 static const struct dm_serial_ops owl_serial_ops = {
 	.putc =	owl_dm_serial_putc,

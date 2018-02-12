@@ -5,9 +5,4 @@
 #
 # SPDX-License-Identifier:	GPL-2.0+
 #
-obj-y += board.o
-
-ifdef CONFIG_SPL_BUILD
-obj-y += common.o
-obj-y += driver/
-endif
+obj-y += ddr_init_main.o ddr.o

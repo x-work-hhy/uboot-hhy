@@ -14,9 +14,8 @@
 /*
  * u-boot SPL definitions, which is resided in SRAM
  */
-
 #define CONFIG_SPL_TEXT_BASE		0xe4063200
-#define CONFIG_SPL_MAX_SIZE		(1024 * 20)
+#define CONFIG_SPL_MAX_SIZE		(1024 * 30)
 
 #define CONFIG_SPL_BSS_START_ADDR	(CONFIG_SPL_TEXT_BASE + \
 					 CONFIG_SPL_MAX_SIZE)
@@ -37,17 +36,17 @@
 /*
  * u-boot definitions, which is resided in SDRAM, TODO
  */
-
-#define CONFIG_SYS_TEXT_BASE		CONFIG_SPL_TEXT_BASE
-#define CONFIG_SYS_INIT_SP_ADDR		CONFIG_SPL_STACK
+#define CONFIG_SYS_TEXT_BASE		0x11000000	
+#define CONFIG_SYS_INIT_SP_ADDR		CONFIG_SYS_TEXT_BASE + 0x7ff00
 
 /* Some commands use this as the default load address, TODO */
 #define CONFIG_SYS_LOAD_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x7ffc0)
 
 /* for DRAM test */
 /* #define CONFIG_SYS_DRAM_TEST */
-#define CONFIG_SYS_MEMTEST_START	CONFIG_SYS_INIT_SP_ADDR
-#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_TEXT_BASE
+
+#define CONFIG_SYS_MEMTEST_START	0x0	
+#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + 2048
 
 /* Generic Interrupt Controller Definitions */
 #define CONFIG_GICV2

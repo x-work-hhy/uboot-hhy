@@ -8,3 +8,4 @@
 obj-y += serial/
 obj-y += i2c/
 obj-y += pmu/
+obj-y += ddr/

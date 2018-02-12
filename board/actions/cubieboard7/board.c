@@ -53,7 +53,6 @@ static void reboot_to_adfu(void)
 	call_adfu = (void (*)(void))0xffff0400;
 
 	call_adfu();
-	while (1);
 }
 
 
@@ -65,7 +64,7 @@ static void reboot_to_adfu(void)
 void cubieboard7_early_debug(int debug_code)
 {
 	uint8_t val;
-
+	
 	val = debug_code & 0x1;
 	setbits_le32(GPIOB_OUTEN, 1 << DEBUG_LED2_YELLOW);
 	clrsetbits_le32(GPIOB_OUTDAT, 1 << DEBUG_LED2_YELLOW,
@@ -80,7 +79,6 @@ void cubieboard7_early_debug(int debug_code)
 struct mm_region *mem_map = cubieboard7_mem_map;
 
 #ifdef CONFIG_SPL_BUILD
-
 /*
  * called from C runtime startup code (arch/arm/lib/crt0_64.S:_main)
  * - we have a stack and a place to store GD, both in SRAM.
@@ -103,10 +101,16 @@ void board_init_f(ulong bootflag)
  	owl_printf("%s, owl i2c0 init ok\n", __func__);
 	
  	atc260x_early_init();
- 	owl_printf("%s, owl pmu init ok\n", __func__);
+ 	owl_printf("%s, owl pmu earlay init ok\n", __func__);
 	
+	ddr_init(1);
+	//owl_ddr_init();
+ 	owl_printf("%s, owl ddr init ok\n", __func__);
+
+	//testdram();
 	cubieboard7_early_debug(3);
- 	//reboot_to_adfu();
+ 	
+	reboot_to_adfu();
 }
 
 void board_boot_order(u32 *spl_boot_list)
@@ -120,6 +124,7 @@ void board_boot_order(u32 *spl_boot_list)
 void board_init_r(gd_t *new_gd, ulong dest_addr)
 {
 }
+
 void panic(const char *fmt, ...)
 {
 }
@@ -127,10 +132,13 @@ void panic(const char *fmt, ...)
 #endif
 
 #ifdef CONFIG_BOARD_EARLY_INIT_F
+/* this function is called in common/board_f.c */
 int board_early_init_f(void)
 {
-	cubieboard7_early_debug(2);
-	while (1);
+	/* all of the pad is enabled, or they are all in high-z state */
+	setbits_le32(PAD_CTRL, 1 << PAD_EN);
+	/* enable pad_en 0~5 (GPIOE2-3/GPIOD28-31) */
+	clrsetbits_le32(CPU_VDD_CTL, 0x3f0, 0x3f0);
 
 	return 0;
 }
@@ -138,7 +146,6 @@ int board_early_init_f(void)
 
 int board_init(void)
 {
-	cubieboard7_early_debug(2);
 	return 0;
 }
 
@@ -153,13 +160,9 @@ void reset_cpu(ulong addr)
 {
 }
 
-extern void s900_ddr_init(void);
 int dram_init(void)
 {
 	printf("dram_init\n");
-
-	//cubieboard7_early_debug(11);
-
 	/* no need do dram init in here, we have done it in SPL */
 
 	gd->ram_size = CONFIG_SYS_SDRAM_SIZE;
@@ -175,33 +178,33 @@ int testdram (void)
 	uint32_t *pend = (uint32_t *)CONFIG_SYS_MEMTEST_END;
 	uint32_t *p;
 
-	printf("SDRAM test phase 1:\n");
-	printf("write...\n");
+	owl_printf("SDRAM test phase 1:\n");
+	owl_printf("write...\n");
 	for (p = pstart; p < pend; p++)
 		*p = 0xaaaaaaaa;
 
-	printf("read back and check...\n");
+	owl_printf("read back and check...\n");
 	for (p = pstart; p < pend; p++) {
 		if (*p != 0xaaaaaaaa) {
-			printf ("SDRAM test fails at: %08x=%08x\n", (uint32_t)p, *p);
+			owl_printf ("SDRAM test fails at: %08x=%08x\n", (uint32_t)p, *p);
 			while (1);
 		}
 	}
 
-	printf("SDRAM test phase 2:\n");
-	printf("write...\n");
+	owl_printf("SDRAM test phase 2:\n");
+	owl_printf("write...\n");
 	for (p = pstart; p < pend; p++)
 		*p = 0x55555555;
 
-	printf("read back and check...\n");
+	owl_printf("read back and check...\n");
 	for (p = pstart; p < pend; p++) {
 		if (*p != 0x55555555) {
-			printf ("SDRAM test fails at: %08x=%08x\n", (uint32_t)p, *p);
+			owl_printf ("SDRAM test fails at: %08x=%08x\n", (uint32_t)p, *p);
 			while (1);
 		}
 	}
 
-	printf("SDRAM test passed.\n");
+	owl_printf("SDRAM test passed.\n");
 	return 0;
 }
 #endif

@@ -270,8 +270,8 @@ CONFIG_DISPLAY_BOARDINFO=y
 #
 # Command line interface
 #
-# CONFIG_CMDLINE is not set
-CONFIG_SYS_PROMPT="=> "
+CONFIG_CMDLINE=y
+CONFIG_SYS_PROMPT="[xprj-cb7]# "
 
 #
 # Autoboot options

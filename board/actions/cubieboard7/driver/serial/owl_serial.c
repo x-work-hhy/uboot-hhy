@@ -131,7 +131,7 @@ void owl_serial_puts(const char *s)
 extern void cubieboard7_early_debug(int debug_code);
 int owl_serial_init(void)
 {
-	cubieboard7_early_debug(0);
+	//cubieboard7_early_debug(0);
 
 	/* pinmux */
 #ifdef USING_UART3
@@ -142,7 +142,7 @@ int owl_serial_init(void)
 	clrsetbits_le32(MFP_CTL2, 0x7 << 17, 0x5 << 17);
 #endif
 
-	cubieboard7_early_debug(1);
+	//cubieboard7_early_debug(1);
 
 	/* device clock enable */
 #ifdef USING_UART3
@@ -151,7 +151,7 @@ int owl_serial_init(void)
 	setbits_le32(CMU_DEVCLKEN1, 1 << 13);	/* uart5 */
 #endif
 
-	cubieboard7_early_debug(2);
+	//cubieboard7_early_debug(2);
 
 	/* reset de-assert */
 #ifdef USING_UART3
@@ -160,7 +160,7 @@ int owl_serial_init(void)
 	setbits_le32(CMU_DEVRST1, 1 << 13);
 #endif
 
-	cubieboard7_early_debug(3);
+	//cubieboard7_early_debug(3);
 
 	/* set default baudrate and enable UART */
 	owl_serial_setbrg();
