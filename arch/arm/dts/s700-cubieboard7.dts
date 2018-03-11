@@ -1,0 +1,8 @@
+/dts-v1/;
+
+/ {
+	serial3: uart@e0126000 {
+		compatible = "actions, s700-serial";
+		u-boot,dm-pre-reloc;
+	};
+};

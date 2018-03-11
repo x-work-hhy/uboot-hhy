@@ -322,6 +322,9 @@ dtb-$(CONFIG_ARCH_BCM283X) += \
 	bcm2836-rpi-2-b.dtb \
 	bcm2837-rpi-3-b.dtb
 
+dtb-$(CONFIG_TARGET_CUBIEBOARD7) += \
+	s700-cubieboard7.dtb \
+
 targets += $(dtb-y)
 
 # Add any required device tree compiler flags here

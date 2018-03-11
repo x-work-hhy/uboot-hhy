@@ -80,7 +80,7 @@ struct mm_region *mem_map = cubieboard7_mem_map;
 
 #ifdef CONFIG_SPL_BUILD
 /*
- * called from C runtime startup code (arch/arm/lib/crt0_64.S:_main)
+ * called from C runtime startup code (arch/arm/lib/crt0_64.S:_main) during uboot-spl stage.
  * - we have a stack and a place to store GD, both in SRAM.
  * BSS is not available, so you cannot use uninitialized global/static variables.
  */

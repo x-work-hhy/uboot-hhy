@@ -12,7 +12,7 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-#define USING_UART5
+#define USING_UART3
 
 #define HOSC_FREQ		(24000000)
 
@@ -231,16 +231,17 @@ static const struct dm_serial_ops owl_serial_ops = {
 	.setbrg	= owl_dm_serial_setbrg,
 };
 
-U_BOOT_DRIVER(serial_owl) = {
-	.name	= "serial_owl",
-	.id	= UCLASS_SERIAL,
-	.probe  = owl_serial_probe,
-	.ops	= &owl_serial_ops,
-	.flags  = DM_FLAG_PRE_RELOC,
+static const struct udevice_id owl_serial_ids[] = {
+	 { .compatible = "actions, s700-serial"},
+	 {},
 };
 
-/* TODO */
-U_BOOT_DEVICE(serial_owl) = {
-	.name = "serial_owl",
+U_BOOT_DRIVER(serial_owl) = {
+	.name	  = "serial_owl",
+	.id	  = UCLASS_SERIAL,
+	.of_match = owl_serial_ids,
+	.probe    = owl_serial_probe,
+	.ops	  = &owl_serial_ops,
+	.flags    = DM_FLAG_PRE_RELOC,
 };
 

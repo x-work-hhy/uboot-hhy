@@ -10,7 +10,7 @@
 
 DECLARE_GLOBAL_DATA_PTR;
 
-#define USING_UART5
+#define USING_UART3
 
 #define HOSC_FREQ		(24000000)
 
